@@ -1,0 +1,42 @@
+name: GitHub Audit
+
+on:
+  workflow_dispatch:
+  # Scheduling Workflows: https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#using-a-schedule
+  schedule:
+    # Every Monday, Wednesday, and Friday at noon, GMT.
+    # This shouldn't be needed that frequently, but it also shouldn't take long to run.
+    - cron: '0 17 * * 1,3,5'
+
+jobs:
+  # Prepare our workflow.
+  prepare:
+    name: Prepare
+    uses: bdrelling/ci/.github/workflows/prepare.yml@main
+
+  # Run our audit tests.
+  audit:
+    name: Audit GitHub
+    # Available Runners: https://github.com/actions/virtual-environments
+    runs-on: ubuntu-latest
+    # Available Docker Images: https://hub.docker.com/_/swift/
+    container: swift:focal
+    needs: [prepare]
+    # NOTE: This test is disabled until/unless the unauthenticated rate limit starts failing.
+    # env:
+    #   GITHUB_ACCESS_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run Audit
+        run: sh ./scripts/github_audit.sh
+
+  # Send notification to Discord on failure.
+  send_notification:
+    name: Send Notification
+    uses: bdrelling/ci/.github/workflows/send_notification.yml@main
+    needs: [audit]
+    if: failure()
+    secrets: inherit
+    with:
+      title: Audit Failed
