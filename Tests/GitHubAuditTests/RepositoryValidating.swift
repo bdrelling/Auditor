@@ -76,8 +76,8 @@ extension RepositoryValidating {
             XCTAssertEqual(repository.language, "Swift", repository.name)
         }
 
-        // Issues should be available for all unarchived, public repositories, except the "ci" repository.
-        if repository.name != "ci" {
+        // Issues should be available for all unarchived, public repositories, except the "ci" and "Auditor" repositories.
+        if repository.name != "ci", repository.name != "Auditor" {
             XCTAssertEqual(repository.hasIssues, true, repository.name)
         }
     }
