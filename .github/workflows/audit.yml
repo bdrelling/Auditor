@@ -10,7 +10,7 @@ on:
   push:
     branches: [main]
     paths:
-      - '.github/workflows/github_audit.yml'
+      - '.github/workflows/audit.yml'
       - 'Plugins/**'
       - 'Snippets/**'
       - 'Sources/**'
