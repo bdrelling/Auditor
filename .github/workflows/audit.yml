@@ -1,12 +1,12 @@
-name: GitHub Audit
+name: Audit GitHub
 
 on:
   workflow_dispatch:
   # Scheduling Workflows: https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#using-a-schedule
   schedule:
-    # Every Monday, Wednesday, and Friday at noon, GMT.
+    # Every Monday, Wednesday, and Friday at 12pm CDT.
     # This shouldn't be needed that frequently, but it also shouldn't take long to run.
-    - cron: '0 17 * * 1,3,5'
+    - cron: '0 17 * * *'
   push:
     branches: [main]
     paths:
