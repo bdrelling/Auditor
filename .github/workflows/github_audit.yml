@@ -7,6 +7,16 @@ on:
     # Every Monday, Wednesday, and Friday at noon, GMT.
     # This shouldn't be needed that frequently, but it also shouldn't take long to run.
     - cron: '0 17 * * 1,3,5'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/github_audit.yml'
+      - 'Plugins/**'
+      - 'Snippets/**'
+      - 'Sources/**'
+      - 'Tests/**'
+      - '**.swift'
+      - 'Package.resolved'
 
 jobs:
   # Prepare our workflow.
@@ -28,8 +38,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Run Audit
-        run: sh ./scripts/github_audit.sh
+      - name: Run Audit Tests
+        run: swift test
 
   # Send notification to Discord on failure.
   send_notification:
