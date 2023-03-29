@@ -1,4 +1,4 @@
-// swift-tools-version:5.6
+// swift-tools-version: 5.7
 
 import PackageDescription
 
@@ -8,8 +8,7 @@ let package = Package(
         .macOS(.v12),
     ],
     dependencies: [
-        .package(url: "https://github.com/bdrelling/GoatHerb", from: "0.2.1"),
-        .package(url: "https://github.com/swift-kipple/Tools", from: "0.3.1"),
+        .package(url: "https://github.com/bdrelling/GoatHerb", from: "0.3.0"),
     ],
     targets: [
         .testTarget(

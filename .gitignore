@@ -58,3 +58,6 @@ output/
 ## Local Artifacts
 bin/
 tmp/
+
+## Custom
+Package.resolved
