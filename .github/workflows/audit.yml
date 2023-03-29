@@ -40,10 +40,11 @@ jobs:
         uses: actions/checkout@v2
       # Cache .build directory.
       # Source: https://github.com/actions/cache/blob/main/examples.md#swift---swift-package-manager
-      - uses: actions/cache@v3
+      - name: Cache Swift Packages
+        uses: actions/cache@v3
         with:
           path: .build
-          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          key: ${{ runner.os }}-spm-${{ hashFiles('Package.resolved') }}
           restore-keys: |
             ${{ runner.os }}-spm-
       - name: Resolve Swift Packages
